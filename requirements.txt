@@ -1,0 +1,9 @@
+numpy>=1.24.0,<2.0.0
+opencv-python>=4.8.0
+scikit-image>=0.21.0
+matplotlib>=3.7.0
+streamlit>=1.30.0
+pandas>=2.0.0
+pillow>=10.0.0
+ipykernel>=6.25.0
+notebook>=7.0.0
