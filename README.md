@@ -1,5 +1,11 @@
 # Multi-Carrier Spread Spectrum (MC-SS) Image Steganography
 
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg)](https://www.python.org/)
+[![Framework](https://img.shields.io/badge/Framework-Streamlit%20%7C%20Jupyter-red.svg)](https://streamlit.io/)
+[![PSNR](https://img.shields.io/badge/PSNR-%3E%2042%20dB-brightgreen.svg)]()
+[![BER](https://img.shields.io/badge/Clean%20BER-0.00%25-success.svg)]()
+[![License](https://img.shields.io/badge/License-Academic-lightgrey.svg)]()
+
 An advanced, fault-tolerant spatial-domain image steganography framework inspired by **Orthogonal Frequency Division Multiplexing (OFDM)** and **Direct-Sequence Spread Spectrum (DSSS)** telecommunications.
 
 Instead of embedding the entire payload into a single image (a catastrophic single point of failure), **MC-SS** splits the message across $N$ orthogonal image carriers using Linear Feedback Shift Register (LFSR) pseudo-noise (PN) sequences and **Hamming(7,4) error-correcting codes with carrier-level bit interleaving**.
