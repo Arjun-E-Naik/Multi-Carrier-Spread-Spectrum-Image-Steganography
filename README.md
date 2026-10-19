@@ -24,7 +24,7 @@ Instead of embedding the entire payload into a single image (a catastrophic sing
 
 ---
 
-## 📂 Project Directory Structure
+##  Project Directory Structure
 
 ```text
 DPS/
@@ -50,7 +50,7 @@ DPS/
 
 ---
 
-## 🚀 Quickstart Guide
+##  Quickstart Guide
 
 ### 1. Dedicated Virtual Environment Setup
 Ensure you run inside the dedicated Python virtual environment:
@@ -98,7 +98,7 @@ python -m unittest discover tests
 
 ---
 
-## 🎭 10-Minute Mentor Showcase Script
+##  10-Minute Mentor Showcase Script
 
 ### Act 1: Live Interactive Demo (4 Minutes)
 1. Open the **Streamlit Web UI** (`streamlit run app.py`).
