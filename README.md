@@ -12,7 +12,7 @@ Instead of embedding the entire payload into a single image (a catastrophic sing
 
 ---
 
-## 🏆 Key Architectural Advantages
+##  Key Architectural Advantages
 
 | Metric / Scenario | Single-Image DSSS (Baseline) | MC-SS (Proposed System) |
 | :--- | :--- | :--- |
