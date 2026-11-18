@@ -1,7 +1,7 @@
 """
 app.py
 Interactive Streamlit Showcase for Multi-Carrier Spread Spectrum (MC-SS) Image Steganography.
-Structured in 4 Acts for Academic Demonstration, TCP/IP Network Transmission & Viva Defense.
+Structured in 4 Acts for Interactive Demonstration, Benchmarks, and Live TCP/IP Transmission.
 """
 
 import html
@@ -186,7 +186,7 @@ st.caption("A Resilient Spatial Steganography Pipeline with Spatial Diversity & 
 tab1, tab2, tab3, tab4 = st.tabs([
     "🚀 Act 1: Live Interactive Demo",
     "⚡ Act 2: Attack & Carrier-Loss Stress Test",
-    "📊 Act 3: Quantitative Benchmarks & Viva Defense",
+    "📊 Act 3: Quantitative Benchmarks",
     "🌐 Act 4: Live TCP/IP Network Demo"
 ])
 
@@ -267,7 +267,7 @@ with tab1:
         st.metric("Mean Residual (μ)", f"{np.mean(res):.4f}", help="Should be ~ 0 for zero-mean noise")
         st.metric("Residual Std Dev (σ)", f"{np.std(res):.2f}", help=f"Proportional to α={alpha}")
         st.metric("Max Absolute Residual", f"{np.max(np.abs(res)):.1f} intensity levels")
-        st.info("💡 **Mentor Insight:** Because $\\alpha$ is small and the sequence is zero-mean pseudo-noise, the human visual system (HVS) cannot perceive the perturbations. The processing gain pulls the signal from the noise floor at the receiver.")
+        st.info("💡 **Technical Note:** Because $\\alpha$ is small and the sequence is zero-mean pseudo-noise, the human visual system (HVS) cannot perceive the perturbations. The processing gain pulls the signal from the noise floor at the receiver.")
 
     st.markdown("---")
     st.markdown("### 3. Blind Correlation Extraction")
@@ -415,13 +415,13 @@ with tab2:
 
 
 # =============================================================================
-# ACT 3: QUANTITATIVE BENCHMARKS & VIVA DEFENSE
+# ACT 3: QUANTITATIVE BENCHMARKS
 # =============================================================================
 with tab3:
-    st.subheader("Act 3: Benchmark Graphs & Viva Defense")
+    st.subheader("Act 3: Quantitative Benchmark Graphs")
     st.write(
-        "Pre-computed quantitative evaluation curves and technical rationale to defend the "
-        "engineering architecture during mentor evaluation."
+        "Pre-computed quantitative evaluation curves comparing Multi-Carrier Spread Spectrum (MC-SS) "
+        "against the Single-Image DSSS baseline."
     )
 
     results_dir = os.path.join(os.path.dirname(__file__), "results")
@@ -430,11 +430,10 @@ with tab3:
     g2b_path = os.path.join(results_dir, "graph2b_ber_vs_jpeg.png")
     g3_path = os.path.join(results_dir, "graph3_ber_vs_carrier_loss.png")
 
-    tab_g1, tab_g2, tab_g3, tab_viva = st.tabs([
+    tab_g1, tab_g2, tab_g3 = st.tabs([
         "📈 Graph 1: Imperceptibility vs. Alpha",
         "📉 Graph 2: Robustness Curves",
-        "🛡️ Graph 3: Carrier Loss Resilience",
-        "🎓 Mentor Viva Defense Prep"
+        "🛡️ Graph 3: Carrier Loss Resilience"
     ])
 
     with tab_g1:
@@ -444,7 +443,7 @@ with tab3:
             "At $\\alpha = 2.0$, PSNR exceeds **42 dB** (well above the 40 dB threshold) and SSIM is **> 0.99**."
         )
         if os.path.exists(g1_path):
-            st.image(g1_path, use_container_width=True)
+            st.image(g1_path, width="stretch")
         else:
             st.info("Run `python run_benchmarks.py` to generate publication plots.")
 
@@ -454,58 +453,19 @@ with tab3:
         col_ga, col_gb = st.columns(2)
         with col_ga:
             if os.path.exists(g2_path):
-                st.image(g2_path, caption="Robustness to AWGN", use_container_width=True)
+                st.image(g2_path, caption="Robustness to AWGN", width="stretch")
         with col_gb:
             if os.path.exists(g2b_path):
-                st.image(g2b_path, caption="Robustness to JPEG Compression", use_container_width=True)
+                st.image(g2b_path, caption="Robustness to JPEG Compression", width="stretch")
 
     with tab_g3:
         st.markdown("#### Fault Tolerance: BER vs. Number of Available Carriers")
         st.write(
             "Simulating dropped or intercepted stego images ($N, N-1, N-2, \\dots$). "
-            "Shows catastrophic single-image failure vs. MC-SS graceful degradation and perfect ECC reconstruction."
+            "Shows single-image failure vs. MC-SS graceful degradation and Hamming ECC reconstruction."
         )
         if os.path.exists(g3_path):
-            st.image(g3_path, use_container_width=True)
-
-    with tab_viva:
-        st.markdown("### 🎓 Core Viva Questions & Technical Answers")
-
-        with st.expander("Q1: Why compare Multi-Carrier Spread Spectrum to OFDM in telecommunications?", expanded=True):
-            st.markdown("""
-            **Technical Answer:**
-            Just as **Orthogonal Frequency Division Multiplexing (OFDM)** splits a high-bitrate data stream across multiple orthogonal subcarrier frequencies to survive frequency-selective fading and narrowband interference:
-            - **MC-SS** splits the high-density secret payload across $N$ orthogonal PN sequences embedded into separate spatial image carriers.
-            - Localized distortions, JPEG quantization, or packet loss in one carrier does not destroy the entire payload.
-            - Spatial diversity combined with Hamming interleaving allows full payload recovery even with complete loss of a subcarrier image.
-            """)
-
-        with st.expander("Q2: How do you maintain PSNR > 40 dB while achieving 0% BER?", expanded=True):
-            st.markdown("""
-            **Technical Answer:**
-            The key lies in the **Spreading Factor (Processing Gain)**:
-            - For a $512 \\times 512$ image ($262,144$ pixels) and a sub-message of ~150 bits, each bit is spread over $M \\approx 1,700$ pixels.
-            - Spreading gain is given by:
-              $$\\mathrm{Processing\\ Gain} = 10 \\log_{10}(M) \\approx 10 \\log_{10}(1700) \\approx 32.3\\ \\text{dB}$$
-            - Even though the spatial amplitude is minuscule ($\\alpha = 1.5 \\sim 2.0$ intensity levels, guaranteeing PSNR > 42 dB), the coherent correlation summation accumulator $\\sum_{j=1}^M I_{\\mathrm{stego}}(j) P_k(j)$ aggregates signal energy coherently while incoherent image noise cancels out.
-            """)
-
-        with st.expander("Q3: Why is high-pass residual filtering used at the receiver?", expanded=True):
-            st.markdown("""
-            **Technical Answer:**
-            The host cover image content acts as interference during blind extraction:
-            $$C = \\sum_{j=1}^M I(j) P_k(j) + \\alpha \\cdot b_i \\cdot M$$
-            Because natural images have strong low-frequency spatial correlations, subtracting a local 3×3 moving average (high-pass filter) attenuates the host image interference $\\sum I(j) P(j)$ by over 90%, leaving the high-frequency PN chips intact and allowing error-free threshold detection.
-            """)
-
-        with st.expander("Q4: How does bit interleaving with Hamming(7,4) prevent message loss?", expanded=True):
-            st.markdown("""
-            **Technical Answer:**
-            A Hamming(7,4) code can correct 1 bit error or up to 2 bit erasures per 7-bit block.
-            - If bits were embedded sequentially, losing Carrier 1 would destroy a continuous 25% chunk of text (catastrophic burst error).
-            - By interleaving the 7 bits of each codeword across the $N$ carriers (Carrier $k = i \\pmod N$), losing Carrier 1 causes at most $\\lceil 7/N \\rceil$ missing bits per codeword.
-            - For $N=4$ or $N=5$, each codeword loses at most 1 or 2 bits, which the syndrome and erasure decoder corrects with 100% fidelity.
-            """)
+            st.image(g3_path, width="stretch")
 
 
 # =============================================================================
