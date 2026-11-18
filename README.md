@@ -74,13 +74,17 @@ Secret Text ──> [Binary Conversion] ──> [Hamming(7,4) Encode] ──> [C
 │   ├── ecc_hamming.py          # Hamming(7,4) ECC and carrier interleaver
 │   ├── mcss_core.py            # MC-SS embedder, extractor, and DSSS baseline
 │   ├── attacks.py              # AWGN, JPEG compression, cropping, resizing, and carrier drop
-│   └── metrics.py              # PSNR, SSIM, and BER calculations with plotting functions
-├── app.py                      # Interactive Streamlit interface
+│   ├── metrics.py              # PSNR, SSIM, and BER calculations with plotting functions
+│   └── network_tcp.py          # TCP/IP framing protocol, StegoTCPServer, and StegoTCPClient
+├── app.py                      # Interactive Streamlit interface (Acts 1-4 incl. Live TCP/IP)
+├── tcp_server.py               # Standalone TCP/IP receiver server CLI
+├── tcp_client.py               # Standalone TCP/IP sender client CLI
 ├── demo_showcase.ipynb         # Jupyter Notebook demonstration
 ├── run_benchmarks.py           # Quantitative evaluation script
 ├── download_dataset.py         # Dataset download and preparation script
 ├── tests/
-│   └── test_pipeline.py        # Automated unit tests
+│   ├── test_pipeline.py        # Core steganography and ECC unit tests
+│   └── test_network_tcp.py     # TCP/IP client-server integration tests
 ├── requirements.txt            # Python dependencies
 └── README.md
 ```
@@ -117,10 +121,21 @@ python download_dataset.py
 ## How to Run
 
 ### Interactive Streamlit Interface
-Run the local web interface to test custom text, adjust $\alpha$, apply attacks, and view extraction results:
+Run the local web interface to test custom text, adjust $\alpha$, apply attacks, run live TCP/IP transfers, and view extraction results:
 
 ```powershell
 streamlit run app.py
+```
+
+### Standalone TCP/IP Client-Server Demo (Optional Two-Terminal / LAN)
+Terminal 1 (Receiver Server):
+```powershell
+python tcp_server.py --host 0.0.0.0 --port 5000 --key "QuantumKey#2026"
+```
+
+Terminal 2 (Sender Client, optionally dropping Carrier 1 in transit):
+```powershell
+python tcp_client.py --host 127.0.0.1 --port 5000 --key "QuantumKey#2026" --msg "Hello over TCP/IP" --drop-carrier 1
 ```
 
 ### Jupyter Notebook
